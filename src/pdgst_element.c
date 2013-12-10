@@ -2,9 +2,9 @@
  *
  * pdgst - implementation file
  *
- * copyleft (c) 2009 IOhannes m zmölnig
+ * copyleft (c) 2009 IOhannes m zmï¿½lnig
  *
- *   forum::für::umläute
+ *   forum::fï¿½r::umlï¿½ute
  *
  *   institute of electronic music and acoustics (iem)
  *   university of music and performing arts
@@ -65,18 +65,18 @@ static void pdgst_element__any(t_pdgst_element*x, t_symbol*s, int argc, t_atom*a
   }
 }
 
-static void pdgst_element__seek (t_pdgst_element*x, t_float time)
+static void pdgst_element__seek (t_pdgst_element*x, t_float time, t_float playspeed)
 {
   GstElement *element=x->x_element;
   guint64     time_ns=time*1e6;;
   GstEvent *event;
 
-  event = gst_event_new_seek (1.0, 
+  event = gst_event_new_seek (playspeed, 
 			      GST_FORMAT_TIME,
 			      GST_SEEK_FLAG_NONE,
 			      GST_SEEK_TYPE_SET, time_ns,
 			      GST_SEEK_TYPE_NONE, G_GUINT64_CONSTANT (0));
-  post("seeking element %s to %f", x->x_elem.x_gstname->s_name, time);
+  post("seeking element %s to %f at speed %f", x->x_elem.x_gstname->s_name, time, playspeed);
   gst_element_send_event (element, event);
 }
 
